@@ -207,6 +207,20 @@ namespace OWCE.Pages
                 App.Current.OWBLE.ErrorOccurred += OWBLE_ErrorOccurred;
                 App.Current.OWBLE.BoardDiscovered += OWBLE_BoardDiscovered;
 
+                if (DeviceInfo.Platform == DevicePlatform.iOS)
+                {
+                    var hasShownWatchOSDisabled = Preferences.Get("OWCE_WatchOS_Support_Disabled", false);
+                    if (hasShownWatchOSDisabled == false)
+                    {
+                        var alert = new Popup.Alert("Onewheel Community Edition", "WatchOS support has been disabled until a future update can restore it.")
+                        {
+                            ButtonText = "OK",
+                        };
+                        await PopupNavigation.Instance.PushAsync(alert, true);
+                        Preferences.Set("OWCE_WatchOS_Support_Disabled", true);
+                    }
+                }
+
                 // If this is the first launch of the current app we want to re-alert the user that this is a community driven app.
                 if (VersionTracking.IsFirstLaunchForCurrentVersion)
                 {
