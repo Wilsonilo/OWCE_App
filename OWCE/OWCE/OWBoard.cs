@@ -20,7 +20,7 @@ using OWCE.Network;
 using OWCE.DependencyInterfaces;
 using Rg.Plugins.Popup.Services;
 using MvvmHelpers;
-using OWCE.PropertyChangeHandlers;
+//using OWCE.PropertyChangeHandlers;
 
 namespace OWCE
 {
@@ -574,7 +574,7 @@ namespace OWCE
 
             // Subscribe to property changes to keep watch app in sync
             // (eg speed, battery percent changes)
-            this.PropertyChanged += WatchSyncEventHandler.HandlePropertyChanged;
+            //this.PropertyChanged += WatchSyncEventHandler.HandlePropertyChanged;
         }
 
         public virtual void Init()

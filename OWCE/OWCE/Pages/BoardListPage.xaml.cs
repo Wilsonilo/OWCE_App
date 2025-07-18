@@ -373,8 +373,8 @@ namespace OWCE.Pages
                 {
                     await Navigation.PushModalAsync(new CustomNavigationPage(new BoardPage(board)));
                     // Publish notification that board was connected
-                    IWatch watchService = DependencyService.Get<IWatch>();
-                    watchService.ListenForWatchMessages(board);
+                    //IWatch watchService = DependencyService.Get<IWatch>();
+                    //watchService.ListenForWatchMessages(board);
                 }
                 /*
                 try

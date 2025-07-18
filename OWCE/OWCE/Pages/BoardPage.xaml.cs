@@ -180,9 +180,9 @@ namespace OWCE.Pages
 
             await Navigation.PopModalAsync();
 
-            IWatch watchService = DependencyService.Get<IWatch>();
+            //IWatch watchService = DependencyService.Get<IWatch>();
 
-            watchService.StopListeningForWatchMessages();
+            //watchService.StopListeningForWatchMessages();
         }
 
 
