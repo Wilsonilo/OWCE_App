@@ -11,3 +11,4 @@ Protobuf/csharp/
 mono_crash.*.json
 *.blob
 OWCE/OWCE/Resources/SampleRideData/*.bin
+*.user
