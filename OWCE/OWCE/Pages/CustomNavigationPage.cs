@@ -1,13 +1,13 @@
 ﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
-using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.PlatformConfiguration;
+using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 
 namespace OWCE.Pages
 {
-    public class CustomNavigationPage : Xamarin.Forms.NavigationPage
+    public class CustomNavigationPage : Microsoft.Maui.Controls.NavigationPage
     {
-        public CustomNavigationPage(Xamarin.Forms.Page root) : base(root)
+        public CustomNavigationPage(Microsoft.Maui.Controls.Page root) : base(root)
         {
             On<iOS>().SetHideNavigationBarSeparator(true);
 

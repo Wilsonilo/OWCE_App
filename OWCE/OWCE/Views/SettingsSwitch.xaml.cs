@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MvvmHelpers;
 using OWCE.Extensions;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
 
 namespace OWCE.Views
 {
@@ -14,7 +14,7 @@ namespace OWCE.Views
             nameof(OnColor),
             typeof(Color),
             typeof(SettingsSwitch),
-            Color.Blue);
+            Colors.Blue);
 
         public Color OnColor
         {
@@ -27,7 +27,7 @@ namespace OWCE.Views
             nameof(OffColor),
             typeof(Color),
             typeof(SettingsSwitch),
-            Color.Black);
+            Colors.Black);
 
         public Color OffColor
         {
@@ -53,7 +53,7 @@ namespace OWCE.Views
             nameof(CurrentColor),
             typeof(Color),
             typeof(SettingsSwitch),
-            Color.Black);
+            Colors.Black);
 
         public Color CurrentColor
         {

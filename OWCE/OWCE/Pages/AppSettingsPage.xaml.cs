@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Xamarin.CommunityToolkit.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 using OWCE.Views;
-using Xamarin.Forms;
-using Xamarin.Essentials;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.ApplicationModel;
 
 namespace OWCE.Pages
 {
@@ -17,16 +18,16 @@ namespace OWCE.Pages
             InitializeComponent();
 
             MetricDisplay = App.Current.MetricDisplay;
-            AutoRideRecording = Preferences.Get("auto_ride_recording", false);
+            AutoRideRecording = Microsoft.Maui.Storage.Preferences.Get("auto_ride_recording", false);
 
             CustomToolbarItems.Add(new CustomToolbarItem()
             {
                 Position = CustomToolbarItemPosition.Left,
                 Text = "Cancel",
-                Command = new AsyncCommand(async () =>
+                Command = new AsyncRelayCommand(async () =>
                 {
                     await Navigation.PopModalAsync();
-                }, allowsMultipleExecutions: false),
+                }),
             });
 
 
@@ -34,17 +35,17 @@ namespace OWCE.Pages
             {
                 Position = CustomToolbarItemPosition.Right,
                 Text = "Save",
-                Command = new AsyncCommand(async () =>
+                Command = new AsyncRelayCommand(async () =>
                 {
                     App.Current.MetricDisplay = MetricDisplay;
 
-                    Preferences.Set("metric_display", MetricDisplay);
-                    Preferences.Set("auto_ride_recording", AutoRideRecording);
+                    Microsoft.Maui.Storage.Preferences.Set("metric_display", MetricDisplay);
+                    Microsoft.Maui.Storage.Preferences.Set("auto_ride_recording", AutoRideRecording);
 
                     MessagingCenter.Send<App>(App.Current, App.UnitDisplayUpdatedKey);
 
                     await Navigation.PopModalAsync();
-                }, allowsMultipleExecutions: false),
+                }),
             });
 
             BindingContext = this;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Controls;
 
 namespace OWCE.Converters
 {

@@ -1,26 +1,18 @@
 ﻿using System;
-using OWCE.DependencyInterfaces;
-using Xamarin.Forms;
-using CoreBluetooth;
-using Foundation;
-using CoreFoundation;
-using System.Threading.Tasks;
-using System.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading;
-
-#if __IOS__
-using UIKit;
+using System.Threading.Tasks;
+using CoreBluetooth;
+using CoreFoundation;
+using Foundation;
+using OWCE.DependencyInterfaces;
 using OWCE.iOS.Extensions;
-[assembly: Dependency(typeof(OWCE.iOS.DependencyImplementations.OWBLE))]
+using UIKit;
+
 namespace OWCE.iOS.DependencyImplementations
-#elif __MACOS__
-using OWCE.MacOS.Extensions;
-[assembly: Dependency(typeof(OWCE.MacOS.DependencyImplementations.OWBLE))]
-namespace OWCE.MacOS.DependencyImplementations
-#endif
 {
     public class OWBLE : NSObject, INotifyPropertyChanged, IOWBLE, ICBCentralManagerDelegate, ICBPeripheralDelegate
     {
@@ -141,7 +133,7 @@ namespace OWCE.MacOS.DependencyImplementations
             // This will prompt the user for the "OWCE wants to use bluetooth" prompt.
             if (_centralManager == null)
             {
-                Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
+                Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
                {
                    _dispatchQueue = new DispatchQueue("CBCentralManager_Scanner_Queue");
                    _centralManager = new CBCentralManager(this, _dispatchQueue); // Prompt displays here, but not a blocking call.
@@ -149,23 +141,23 @@ namespace OWCE.MacOS.DependencyImplementations
             }
             else
             {
-                if (_centralManager.State == CBCentralManagerState.PoweredOn)
+                if (_centralManager.State == CBManagerState.PoweredOn)
                 {
                     DoActualScan();
                 }
-                else if (_centralManager.State == CBCentralManagerState.PoweredOff)
+                else if (_centralManager.State == CBManagerState.PoweredOff)
                 {
                     throw new Exception("Bluetooth is currently turned off.");
                 }
-                else if (_centralManager.State == CBCentralManagerState.Unauthorized) // User has rejected authorisation.
+                else if (_centralManager.State == CBManagerState.Unauthorized) // User has rejected authorisation.
                 {
                     throw new Exception("Bluetooth permissions is disabled for OWCE.");
                 }
-                else if (_centralManager.State == CBCentralManagerState.Resetting)
+                else if (_centralManager.State == CBManagerState.Resetting)
                 {
                     throw new Exception("Bluetooth scanning is not supported on this device.");
                 }
-                else if (_centralManager.State == CBCentralManagerState.Unsupported)
+                else if (_centralManager.State == CBManagerState.Unsupported)
                 {
                     throw new Exception("Bluetooth scanning is not supported on this device.");
                 }
@@ -189,7 +181,7 @@ namespace OWCE.MacOS.DependencyImplementations
                 return;
             }
 
-            if (_centralManager.State == CBCentralManagerState.PoweredOn)
+            if (_centralManager.State == CBManagerState.PoweredOn)
             {
                 _centralManager.ScanForPeripherals(new CBUUID[] { OWBoard.ServiceUUID.ToCBUUID() }, new PeripheralScanningOptions { AllowDuplicatesKey = true });
                 IsScanning = true;
@@ -457,26 +449,26 @@ namespace OWCE.MacOS.DependencyImplementations
         public void UpdatedState(CBCentralManager central)
         {
             Debug.WriteLine("CBCentralManager_UpdatedState: " + central.State);
-            if (central.State == CBCentralManagerState.PoweredOn)
+            if (central.State == CBManagerState.PoweredOn)
             {
                 // Bluetooth chip is authorised and turned on, start scan.
                 DoActualScan();
             }
-            else if (central.State == CBCentralManagerState.PoweredOff)
+            else if (central.State == CBManagerState.PoweredOff)
             {
                 // User has turned off bluetooth.
                 StopScanning();
                 ErrorOccurred?.Invoke("Unable to scan for boards, bluetooth is currently disabled.");
             }
-            else if (_centralManager.State == CBCentralManagerState.Unauthorized) // User has rejected authorisation.
+            else if (_centralManager.State == CBManagerState.Unauthorized) // User has rejected authorisation.
             {
                 ErrorOccurred?.Invoke("Unable to scan for boards without granting bluetooth permissions.");
             }
-            else if (_centralManager.State == CBCentralManagerState.Resetting)
+            else if (_centralManager.State == CBManagerState.Resetting)
             {
                 ErrorOccurred?.Invoke("Could not scan for boards at this time.");
             }
-            else if (_centralManager.State == CBCentralManagerState.Unsupported)
+            else if (_centralManager.State == CBManagerState.Unsupported)
             {
                 ErrorOccurred?.Invoke("Bluetooth scanning is not supported on this device.");
             }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Input;
 using MvvmHelpers;
 using OWCE.Protobuf;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
 
 namespace OWCE.Pages
 {
@@ -81,7 +81,7 @@ namespace OWCE.Pages
             _logsList.ReplaceRange(tempLogSummary);
         }
 
-        void CollectionView_SelectionChanged(System.Object sender, Xamarin.Forms.SelectionChangedEventArgs e)
+        void CollectionView_SelectionChanged(System.Object sender, Microsoft.Maui.Controls.SelectionChangedEventArgs e)
         {
             if (sender is CollectionView collectionView)
             {

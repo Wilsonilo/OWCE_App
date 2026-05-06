@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
-using Xamarin.Forms.Shapes;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace OWCE.Views
 {
@@ -12,7 +12,7 @@ namespace OWCE.Views
           "ArrowColor",
           typeof(Color),
           typeof(ExpanderArrowView),
-          Color.White);
+          Colors.White);
 
         public Color ArrowColor
         {

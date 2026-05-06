@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Controls;
 
 namespace OWCE.Converters
 {
@@ -31,7 +31,7 @@ namespace OWCE.Converters
             }
             else
             {
-                return $"{UnitConverters.KilometersToMiles(kilometers).ToString("N1")} mi";
+                return $"{(kilometers * 0.621371192f).ToString("N1")} mi";
             }
 
         }

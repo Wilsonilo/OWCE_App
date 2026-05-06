@@ -5,8 +5,8 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Runtime.CompilerServices;
 using OWCE.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 
 namespace OWCE.Pages
 {
@@ -73,7 +73,7 @@ namespace OWCE.Pages
 		{
 			CustomToolbarItems = new ObservableCollection<CustomToolbarItem>();
 
-			Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+			Microsoft.Maui.Controls.NavigationPage.SetHasNavigationBar(this, false);
 
 			CustomToolbarItems.CollectionChanged += (sender, e) =>
 			{
@@ -111,7 +111,7 @@ namespace OWCE.Pages
 
 			_navBackgroundView = new BoxView()
 			{
-				BackgroundColor = (App.Current.Resources["BackgroundGradientStart"] as Color?) ?? Color.White,
+				BackgroundColor = (App.Current.Resources["BackgroundGradientStart"] is Color c ? c : Colors.White),
 			};
 			Grid.SetRowSpan(_navBackgroundView, 2);
 			Grid.SetRow(_navBackgroundView, 0);
@@ -125,7 +125,7 @@ namespace OWCE.Pages
 			{
 				FontAttributes = FontAttributes.Bold,
 				FontSize = 18,
-				TextColor = Color.Black,
+				TextColor = Colors.Black,
 				VerticalOptions = LayoutOptions.Center,
 				HorizontalOptions = LayoutOptions.Center,
 			};
@@ -154,9 +154,9 @@ namespace OWCE.Pages
         {
             base.OnPropertyChanged(propertyName);
 
-			if (Xamarin.Forms.PlatformConfiguration.iOSSpecific.Page.SafeAreaInsetsProperty.PropertyName.Equals(propertyName))
+			if (Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific.Page.SafeAreaInsetsProperty.PropertyName.Equals(propertyName))
 			{
-				SafeAreaInsets = On<Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
+				SafeAreaInsets = On<Microsoft.Maui.Controls.PlatformConfiguration.iOS>().SafeAreaInsets();
 				_mainGrid.RowDefinitions[0].Height = new GridLength(SafeAreaInsets.Top, GridUnitType.Absolute);				
 			}
 			else if (BaseContentProperty.PropertyName.Equals(propertyName))

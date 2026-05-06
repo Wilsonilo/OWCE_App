@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
 using OWCE.Views;
 using OWCE.Models;
 using System.Runtime.CompilerServices;
@@ -107,7 +107,7 @@ namespace OWCE.Views
                 var voltageRange = maxVoltage - minVoltage; //1.4f
                 var voltagePerIndex = voltageRange / batteryCells.CellCount;
                 */
-                var color = Color.Magenta;
+                var color = Colors.Magenta;
 
                 for (var row = 0; row < rows; ++row)
                 {
@@ -118,11 +118,11 @@ namespace OWCE.Views
                         //var voltage = minVoltage + (voltagePerIndex * cellIndex);
                         var label = new Label()
                         {
-                            TextColor = Color.White,
+                            TextColor = Colors.White,
                             Text = "-",
                             FontSize = 24,
                             FontFamily = "SairaExtraCondensed-Bold",
-                            BackgroundColor = Color.Magenta,
+                            BackgroundColor = Colors.Magenta,
                             HorizontalTextAlignment = TextAlignment.Center,
                             VerticalTextAlignment = TextAlignment.Center,
                         };
@@ -171,7 +171,7 @@ namespace OWCE.Views
                 var label = _cellLables[cellID];
                 var color = GetColor(value);
 
-                Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
+                Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
                 {
                     label.Text = value.ToString("F2");
                     label.BackgroundColor = color;
@@ -199,23 +199,7 @@ namespace OWCE.Views
             var colorPercent = (voltagePercent * 0.788235294118);
 
             //System.Diagnostics.Debug.WriteLine($"{voltage:F2} - {colorPercent:F2}");
-            return new Color(1f, colorPercent, 1f);
-
-
-            /*
-            var color = voltage switch
-            {
-                var v when v <= 2.8 => new Color(1f, 201f / 255f, 1f),
-                var v when v > 2.8 => new Color(1f, 201f / 255f, 1f),
-
-            };
-
-            */
-
-            return Color.Magenta;
-
-
-
+            return new Color(1f, (float)colorPercent, 1f);
         }
     }
 }

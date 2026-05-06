@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using SkiaSharp;
-using SkiaSharp.Views.Forms;
-using Xamarin.Forms;
+using SkiaSharp.Views.Maui;
+using SkiaSharp.Views.Maui.Controls;
+using Microsoft.Maui.Controls;
 
 namespace OWCE.Views
 {
@@ -79,7 +80,7 @@ namespace OWCE.Views
             _arcPaint = new SKPaint();
             _arcPaint.Color = new SKColor(0, 0, 0, 31); // Black with 12% alpha
 
-            _displayScale = (float)Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Density;
+            _displayScale = (float)Microsoft.Maui.Devices.DeviceDisplay.MainDisplayInfo.Density;
             //_circleRadius = (_displayScale * 278) * 0.5f;
             //_startAngle = (float)(Math.PI / 180) * 270;
             //_endAngle = (float)(Math.PI / 180) * 13;

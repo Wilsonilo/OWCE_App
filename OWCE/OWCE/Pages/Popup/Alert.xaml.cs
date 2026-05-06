@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Rg.Plugins.Popup.Pages;
-using Xamarin.Forms;
+using Mopups.Pages;
+using Mopups.Services;
+using Microsoft.Maui.Controls;
 
 namespace OWCE.Pages.Popup
 {
@@ -23,7 +24,7 @@ namespace OWCE.Pages.Popup
 
             _actionButtonCommand = command ?? new Command(async () =>
             {
-                await Rg.Plugins.Popup.Services.PopupNavigation.Instance.RemovePageAsync(this);
+                await MopupService.Instance.RemovePageAsync(this);
             });
 
             TitleText = title;
