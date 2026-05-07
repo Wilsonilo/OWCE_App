@@ -1,0 +1,21 @@
+# Local device reference (example)
+
+Copy this file to **`LOCAL-DEVICES.md`** in the **repository root** (same folder as `README.md`).  
+`LOCAL-DEVICES.md` is **gitignored** so UDIDs and personal names are not pushed.
+
+Use the values with `-p:_DeviceName="..."` in `dotnet build` / VS Code task **maui: run iOS physical device**.
+
+Fill in from `mlaunch --listdev` when names or UDIDs change.
+
+| Friendly name | UDID |
+|---------------|------|
+| My iPhone | `00000000-0000000000000000` |
+| Second device | `00000000-0000000000000000` |
+
+Example command:
+
+```bash
+cd OWCE
+dotnet build OWCE.iOS/OWCE.iOS.csproj -c Debug -f net9.0-ios -r ios-arm64 -t:Run \
+  -p:_DeviceName="00000000-0000000000000000"
+```

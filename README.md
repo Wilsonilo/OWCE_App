@@ -82,6 +82,35 @@ The `.ipa` is written under `OWCE.iOS/bin/Release/net9.0-ios/ios-arm64/publish/`
 
 Official reference: [Publish a .NET MAUI iOS app using the command line](https://learn.microsoft.com/en-us/dotnet/maui/ios/deployment/publish-cli?view=net-maui-9.0).
 
+#### Build number (`CFBundleVersion`) / versions
+
+App Store Connect and Transporter reject uploads if **`CFBundleVersion`** (the **build** number, an integer string) is not **strictly greater** than every build already uploaded for that app.
+
+1. Edit both places so they stay in sync:
+   - **`OWCE/OWCE.iOS/OWCE.iOS.csproj`** — `ApplicationVersion` (maps iOS build number in MAUI)
+   - **`OWCE/OWCE.iOS/Info.plist`** — `CFBundleVersion` (same integer as `ApplicationVersion`, e.g. `3`, `4`, …)
+2. **Marketing version** (`ApplicationDisplayVersion` / `CFBundleShortVersionString`, e.g. `1.0`) can stay the same across several builds until you want a new store version.
+3. After changing versions, **clean and publish** so the binary is not stale:
+
+   ```bash
+   rm -rf OWCE.iOS/bin OWCE.iOS/obj OWCE/bin OWCE/obj
+   dotnet publish OWCE.iOS/OWCE.iOS.csproj -f net9.0-ios -c Release -r ios-arm64 -p:ArchiveOnBuild=true
+   ```
+
+4. **Confirm** the `.ipa` before upload:
+
+   ```bash
+   unzip -p OWCE.iOS/bin/Release/net9.0-ios/ios-arm64/publish/*.ipa Payload/*.app/Info.plist | plutil -extract CFBundleVersion raw -
+   ```
+
+   The printed value must match what App Store Connect expects (greater than any previous upload).
+
+Errors such as **“bundle version must be higher than the previously uploaded version”** or **-19232** almost always mean the uploaded `.ipa` still had an old **`CFBundleVersion`** or you selected an old file in Transporter.
+
+#### Personal device UDIDs (local only)
+
+To keep **UDIDs** and device nicknames out of git, copy **`LOCAL-DEVICES.md.example`** → **`LOCAL-DEVICES.md`** in the **repository root** and fill in your table. `LOCAL-DEVICES.md` is gitignored.
+
 ---
 
 ## Bluetooth and simulator

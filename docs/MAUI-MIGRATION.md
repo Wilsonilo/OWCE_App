@@ -27,6 +27,7 @@ This document describes the **MAUI iOS** work on this fork relative to the origi
 - **Bluetooth discovery** only lists devices that advertise the Onewheel GATT service (`OWBoard.ServiceUUID`). Random BLE peripherals will not appear; a powered board in range is required for meaningful testing.
 - **Simulator:** UI and much of the app run; BLE is not available. `OWBLE` surfaces a clear “not supported on simulator” style message where applicable.
 - **Signing:** The repository uses **automatic** provisioning in the main `.csproj`. Maintainers may add an optional **gitignored** `OWCE.iOS/Signing.local.props` (see `Signing.local.props.example`) for Team ID and Release provisioning without committing secrets.
+- **Store uploads:** Each TestFlight/App Store binary needs a **monotonically increasing** **`ApplicationVersion`** (`.csproj`) and **`CFBundleVersion`** (`Info.plist`). See the root `README.md` section *Build number (`CFBundleVersion`) / versions*.
 
 ## Solution layout
 

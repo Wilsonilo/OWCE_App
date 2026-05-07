@@ -19,5 +19,5 @@ OWCE/OWCE.iOS/Signing.local.props
 # Use repo-root .vscode; nested folders duplicate config if a subfolder is opened as workspace root
 OWCE/.vscode/
 OWCE/OWCE/.vscode/
-# Partial solution only; MAUI solution is OWCE/OWCE.sln
-OWCE/OWCE/OWCE.sln
+# Machine-local notes (device UDIDs, personal reminders — never commit)
+LOCAL-DEVICES.md
