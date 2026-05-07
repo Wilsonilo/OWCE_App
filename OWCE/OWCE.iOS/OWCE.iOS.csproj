@@ -19,11 +19,7 @@
     <CodesignKey Condition="'$(Configuration)' != 'Debug'">Apple Distribution</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignProvision>Automatic</CodesignProvision>
-    <!--
-      Do not commit Apple Team IDs or provisioning profile UUIDs. For CLI builds, use:
-        -p:DevelopmentTeam=YOURTEAMID
-      when automatic signing cannot infer your team (see README).
-    -->
+    <!-- Optional per-machine overrides: copy Signing.local.props.example → Signing.local.props (gitignored). -->
   </PropertyGroup>
 
   <!-- App Center iOS bindings are device-only; omit packages for simulator (appcenter-sdk-dotnet#1786).
@@ -63,5 +59,7 @@
     <MauiSplashScreen Include="Resources\Splash\splash.png" Color="#000000" />
     <MauiIcon Include="Resources\AppIcon\appicon.png" />
   </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)Signing.local.props" Condition="Exists('$(MSBuildThisFileDirectory)Signing.local.props')" />
 
 </Project>

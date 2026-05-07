@@ -14,6 +14,7 @@ OWCE/OWCE/Resources/SampleRideData/*.bin
 *.mobileprovision
 *.p12
 Directory.Build.props.user
+OWCE/OWCE.iOS/Signing.local.props
 
 # Use repo-root .vscode; nested folders duplicate config if a subfolder is opened as workspace root
 OWCE/.vscode/

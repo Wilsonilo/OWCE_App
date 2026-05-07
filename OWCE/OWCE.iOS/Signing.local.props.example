@@ -1,0 +1,19 @@
+<Project>
+  <!--
+    Copy this file to Signing.local.props (same folder) and fill in your values.
+    Signing.local.props is gitignored — safe for Team ID and Release provisioning profile.
+
+    Find Team ID: https://developer.apple.com/account → Membership → Team ID
+    For Release IPA / Transporter: use your App Store distribution provisioning profile
+    (name as shown in Xcode, or the profile UUID from ~/Library/MobileDevice/Provisioning Profiles).
+  -->
+  <PropertyGroup>
+    <DevelopmentTeam>YOUR_TEAM_ID</DevelopmentTeam>
+
+    <!-- Debug: usually leave Automatic -->
+    <CodesignProvision Condition="'$(Configuration)' == 'Debug'">Automatic</CodesignProvision>
+
+    <!-- Release: profile name OR UUID string from your App Store provisioning profile -->
+    <CodesignProvision Condition="'$(Configuration)' != 'Debug'">YOUR_APP_STORE_PROFILE_NAME_OR_UUID</CodesignProvision>
+  </PropertyGroup>
+</Project>

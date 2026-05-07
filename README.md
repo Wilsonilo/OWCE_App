@@ -14,9 +14,7 @@ Newer board firmware no longer sends through voltage, as Future Motion removed i
 
 NOTE: Onewheel Community Edition app is not endorsed by or affiliated with Future Motion in any way.
 
-Originally written in C# with Xamarin; the **iOS app in this branch** targets **.NET MAUI**.
-
-Open Source Project by [@beeradmoore](http://www.twitter.com/beeradmoore).
+Originally written in C# with Xamarin; the **iOS builds in this fork** target **.NET MAUI** (.NET 9). See **Upstream & attribution** below for the original author and repository.
 
 ---
 
@@ -67,7 +65,7 @@ Use `iossimulator-x64` on older Intel Macs if required.
      -p:_DeviceName="YOUR_DEVICE_NAME_OR_UDID"
    ```
 
-If automatic signing fails from the CLI, add `-p:DevelopmentTeam=YOURTEAMID` (10-character Apple Developer Team ID from the Apple Developer portal).
+If automatic signing fails from the CLI and you **do not** use `Signing.local.props`, add `-p:DevelopmentTeam=YOURTEAMID` (10-character Apple Developer Team ID from the Apple Developer portal).
 
 ### Release IPA (TestFlight / App Store)
 
@@ -99,6 +97,18 @@ Discovery is filtered to boards advertising the **Onewheel BLE service UUID**; a
 - **`OWCE/OWCE/AppConstants.cs`** — optional Syncfusion / App Center keys. Empty strings disable those integrations. The file is safe to commit with empty values; do **not** commit real production secrets into a public fork.
 - **Bundle identifier** — set in `OWCE.iOS.csproj` (`ApplicationId`) and `OWCE.iOS/Info.plist`. **Fork maintainers** should use their own identifier and signing assets for App Store distribution.
 
+### Local Apple signing (`Signing.local.props`)
+
+The committed `.csproj` uses **automatic** provisioning only — fine for many Xcode workflows and for contributors who pass `-p:DevelopmentTeam=...` on the CLI.
+
+To **avoid** repeating `-p:DevelopmentTeam=...` and to pin an **App Store** provisioning profile for **Release / `dotnet publish`** (Transporter):
+
+1. Copy **`OWCE/OWCE.iOS/Signing.local.props.example`** → **`OWCE/OWCE.iOS/Signing.local.props`** (same folder).
+2. Fill in your **Team ID** and, for Release, your distribution profile **name or UUID**.
+3. Never commit `Signing.local.props` — it is listed in **`.gitignore`**.
+
+Clones from GitHub will not include this file; each maintainer creates their own locally.
+
 ---
 
 ## Migration details
@@ -107,9 +117,11 @@ See **[docs/MAUI-MIGRATION.md](docs/MAUI-MIGRATION.md)** for a concise list of t
 
 ---
 
-## Upstream and platforms
+## Upstream & attribution
 
-The original **OnewheelCommunityEdition** project also targets Android and other platforms. This fork’s **active** development path described here is **iOS / MAUI** only unless contributors revive other targets.
+OWCE is an open-source community project originally created by [@beeradmoore](http://www.twitter.com/beeradmoore). The upstream multi-platform repository is **[OnewheelCommunityEdition/OWCE_App](https://github.com/OnewheelCommunityEdition/OWCE_App)** (Xamarin / Android / iOS / watchOS, etc.).
+
+**This fork** focuses on a **.NET MAUI iOS** toolchain and documentation for .NET 9. Product background, Android/WearOS, and the full original README-style context remain best read **from the upstream repo**; the FAQ section below is adapted from that spirit for readers landing here first.
 
 ## Frequently (or not so frequently) Asked Questions
 
