@@ -14,3 +14,9 @@ OWCE/OWCE/Resources/SampleRideData/*.bin
 *.mobileprovision
 *.p12
 Directory.Build.props.user
+
+# Use repo-root .vscode; nested folders duplicate config if a subfolder is opened as workspace root
+OWCE/.vscode/
+OWCE/OWCE/.vscode/
+# Partial solution only; MAUI solution is OWCE/OWCE.sln
+OWCE/OWCE/OWCE.sln
