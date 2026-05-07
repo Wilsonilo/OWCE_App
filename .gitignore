@@ -21,3 +21,6 @@ OWCE/.vscode/
 OWCE/OWCE/.vscode/
 # Machine-local notes (device UDIDs, personal reminders — never commit)
 LOCAL-DEVICES.md
+
+# Partial solution only (library project); use OWCE/OWCE.sln for MAUI
+OWCE/OWCE/OWCE.sln
