@@ -2,11 +2,10 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Maui.Controls;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui;
 using Microsoft.Maui.ApplicationModel;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
+using Microsoft.Maui.Controls;
 using OWCE.DependencyInterfaces;
 using OWCE.Pages;
 
@@ -18,6 +17,9 @@ namespace OWCE
 
         public static new App Current => Application.Current as App;
         public IOWBLE OWBLE { get; private set; }
+
+        public static T GetService<T>() where T : class =>
+            IPlatformApplication.Current?.Services?.GetService<T>();
 
 #if DEBUG
         public const string OWCEApiServer = "api.dev.owce.app";
@@ -57,11 +59,6 @@ namespace OWCE
             InitializeComponent();
 
             MainPage = new CustomNavigationPage(new BoardListPage());
-        }
-
-        protected override void OnStart()
-        {
-            AppCenter.Start($"android={AppConstants.AppCenterAndroid};ios={AppConstants.AppCenteriOS}", typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()

@@ -18,9 +18,21 @@
     <CodesignKey Condition="'$(Configuration)' == 'Debug'">Apple Development</CodesignKey>
     <CodesignKey Condition="'$(Configuration)' != 'Debug'">Apple Distribution</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <DevelopmentTeam>DYWX76A76F</DevelopmentTeam>
     <CodesignProvision>Automatic</CodesignProvision>
+    <!--
+      Do not commit Apple Team IDs or provisioning profile UUIDs. For CLI builds, use:
+        -p:DevelopmentTeam=YOURTEAMID
+      when automatic signing cannot infer your team (see README).
+    -->
   </PropertyGroup>
+
+  <!-- App Center iOS bindings are device-only; omit packages for simulator (appcenter-sdk-dotnet#1786).
+       RuntimeIdentifier is not set when the top PropertyGroup runs, so DISABLE_APPCENTER must be set here. -->
+  <Target Name="OWCEDefineAppCenterSimulator" BeforeTargets="CoreCompile">
+    <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'iossimulator-arm64' Or '$(RuntimeIdentifier)' == 'iossimulator-x64'">
+      <DefineConstants>$(DefineConstants);DISABLE_APPCENTER</DefineConstants>
+    </PropertyGroup>
+  </Target>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.120" />
@@ -29,8 +41,8 @@
     <PackageReference Include="Mopups" Version="1.3.1" />
     <PackageReference Include="SkiaSharp" Version="2.88.9" />
     <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.9" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.5" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.5" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.5" Condition="'$(RuntimeIdentifier)' != 'iossimulator-arm64' And '$(RuntimeIdentifier)' != 'iossimulator-x64'" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.5" Condition="'$(RuntimeIdentifier)' != 'iossimulator-arm64' And '$(RuntimeIdentifier)' != 'iossimulator-x64'" />
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />

@@ -13,7 +13,6 @@ using OWCE.Pages.Popup;
 using OWCE.Views;
 using Mopups.Services;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
@@ -144,9 +143,10 @@ namespace OWCE.Pages
             var sideMenuItem = new CustomToolbarItem()
             {
                 Position = CustomToolbarItemPosition.Left,
-                IconImageSource = "burger_menu",
+                IconImageSource = ImageSource.FromFile("Images/burger_menu.png"),
                 Command = new AsyncRelayCommand(async () =>
                 {
+                    Debug.WriteLine("[OWCE:BoardList] Hamburger: opening side menu");
                     await MopupService.Instance.PushAsync(Popup.SideMenuPopup.Instance);
                 }),
             };
@@ -168,6 +168,13 @@ namespace OWCE.Pages
 
         bool _hasAppeared = false;
         Grid _sideMenuItem;
+
+        /// <summary>Mopups on iOS resolves the presenter from the window/handler; OnAppearing can run before they exist.</summary>
+        async Task WaitForMopupHostReadyAsync()
+        {
+            for (var n = 0; n < 120 && (Handler == null || Window == null); n++)
+                await Task.Delay(16);
+        }
 
         protected override async void OnAppearing()
         {
@@ -214,12 +221,13 @@ namespace OWCE.Pages
                     {
                         ButtonText = "OK",
                     };
+                    await WaitForMopupHostReadyAsync();
                     await MopupService.Instance.PushAsync(alert, true);
 
                     // Additionally if this is also the first launch ever, lets prompt them for bluetooth after they have dismissed the initial alert.
                     if (VersionTracking.IsFirstLaunchEver)
                     {
-                        alert.Disappearing += (sender, e) =>
+                        alert.Disappearing += async (sender, e) =>
                         {
                             var bluetoothPleaseAlert = new Popup.Alert("Bluetooth, please", "OWCE and your Onewheel use Bluetooth to communicate. We need your permission to connect.", new Command(async (object parameter) =>
                             {
@@ -233,7 +241,8 @@ namespace OWCE.Pages
                                 SuperTitleText = "Welcome",
                                 ButtonText = "OK",
                             };
-                            MopupService.Instance.PushAsync(bluetoothPleaseAlert, true);
+                            await WaitForMopupHostReadyAsync();
+                            await MopupService.Instance.PushAsync(bluetoothPleaseAlert, true);
                         };
                     }
                     else
@@ -262,7 +271,8 @@ namespace OWCE.Pages
             }
             */
 
-            if (await DependencyService.Get<DependencyInterfaces.IPermissionPrompt>().PromptBLEPermission() == false)
+            var permissionPrompt = App.GetService<IPermissionPrompt>();
+            if (permissionPrompt == null || await permissionPrompt.PromptBLEPermission() == false)
             {
                 return;
             }
@@ -372,9 +382,7 @@ namespace OWCE.Pages
                 if (board != null)
                 {
                     await Navigation.PushModalAsync(new CustomNavigationPage(new BoardPage(board)));
-                    // Publish notification that board was connected
-                    IWatch watchService = DependencyService.Get<IWatch>();
-                    watchService.ListenForWatchMessages(board);
+                    App.GetService<IWatch>()?.ListenForWatchMessages(board);
                 }
                 /*
                 try
@@ -403,10 +411,19 @@ namespace OWCE.Pages
 
         async Task PastRidesCommand_Clicked()
         {
-            await Task.WhenAll(
-               Navigation.PushAsync(new PastRidesPage()),
-               MopupService.Instance.RemovePageAsync(SideMenuPopup.Instance)
-           );
+            Debug.WriteLine("[OWCE:BoardList] PastRidesCommand: PushAsync PastRidesPage + close menu");
+            try
+            {
+                await Task.WhenAll(
+                    Navigation.PushAsync(new PastRidesPage()),
+                    MopupService.Instance.RemovePageAsync(SideMenuPopup.Instance)
+                );
+                Debug.WriteLine("[OWCE:BoardList] PastRidesCommand: complete");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[OWCE:BoardList] PastRidesCommand error: {ex}");
+            }
         }
 
     }

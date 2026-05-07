@@ -14,7 +14,7 @@
     </Grid.Background>
 
     <!--
-    <Image Source="burger_menu.png" HorizontalOptions="Start" WidthRequest="30" HeightRequest="30" Margin="16,5,0,0" VerticalOptions="End">
+    <Image Source="Images/burger_menu.png" HorizontalOptions="Start" WidthRequest="30" HeightRequest="30" Margin="16,5,0,0" VerticalOptions="End">
         <Image.GestureRecognizers>
             <TapGestureRecognizer Tapped="BurgerMenu_Tapped" />
         </Image.GestureRecognizers>

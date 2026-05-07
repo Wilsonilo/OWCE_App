@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to OWCE.iOS (Simulator)",
+      "type": "coreclr",
+      "request": "attach",
+      "processName": "OWCE.iOS"
+    }
+  ]
+}

@@ -2,8 +2,7 @@
 <pages:BaseContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:OWCE.Pages"    
-    xmlns:mct="clr-namespace:CommunityToolkit.Maui;assembly=CommunityToolkit.Maui"
+    xmlns:pages="clr-namespace:OWCE.Pages"
     x:Class="OWCE.Pages.AboutPage"
     x:DataType="pages:AboutPage"
     Title="About"
@@ -14,28 +13,63 @@
         </Style>
     </pages:BaseContentPage.Resources>
 
-    <Grid Margin="16" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
-        <Label Grid.Row="0" Text="This is a third party app made by the community, for the community. Its aim is to bring additional safety features &amp; better data reporting to its users." />
-        <Label Grid.Row="1" Text="This is not the official Onewheel app. It is not supported, endorsed or affiliated with Future Motion in any way." />
-        <Label Grid.Row="2">
-             <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="Version: " FontAttributes="Bold" />
-                    <Span Text="{Binding VersionString}" />
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
+    <ScrollView>
+        <VerticalStackLayout Margin="16" Spacing="12">
+            <Label LineBreakMode="WordWrap"
+                   Text="This is a third party app made by the community, for the community. Its aim is to bring additional safety features &amp; better data reporting to its users." />
+            <Label LineBreakMode="WordWrap"
+                   Text="This is not the official Onewheel app. It is not supported, endorsed or affiliated with Future Motion in any way." />
+            <Label LineBreakMode="WordWrap">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Version: " FontAttributes="Bold" />
+                        <Span Text="{Binding VersionString}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
 
-        <Label Grid.Row="3" Text="Links:" FontAttributes="Bold" />
-        <Grid Grid.Row="4" RowSpacing="5" Margin="16,0,0,0">
-            <Label Grid.Row="0" Text="OWCE FAQ" TextDecorations="Underline"  />
-            <Label Grid.Row="1" Text="GitHub (Source code)" TextDecorations="Underline"  />
-            <Label Grid.Row="2" Text="Report a problem" TextDecorations="Underline" />
-            <Label Grid.Row="3" Text="Request a feature" TextDecorations="Underline" />
-            <Label Grid.Row="4" Text="Reddit" TextDecorations="Underline" />
-            <Label Grid.Row="5" Text="Twitter" TextDecorations="Underline" />
-            <Label Grid.Row="6" Text="Facebook page (for news)" TextDecorations="Underline" />
-            <Label Grid.Row="7" Text="Facebook group (for discussions)" TextDecorations="Underline" />
-        </Grid>
-    </Grid>
+            <Label Text="Links:" FontAttributes="Bold" Margin="0,8,0,0" />
+
+            <Label Text="OWCE FAQ" TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FAQCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="GitHub (Source code)" TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SourceCodeCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="Report a problem" TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ReportProblemCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="Request a feature" TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RequestFeatureCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="Reddit" TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RedditCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="Twitter" TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding TwitterCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="Facebook page (for news)" TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FacebookPageCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="Facebook group (for discussions)" TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FacebookGroupCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </VerticalStackLayout>
+    </ScrollView>
 </pages:BaseContentPage>

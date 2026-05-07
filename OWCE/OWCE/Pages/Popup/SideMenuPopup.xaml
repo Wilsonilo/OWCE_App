@@ -38,9 +38,11 @@
 
         <Label Grid.Row="0" Text="{Binding Title}" TextColor="Black" FontAttributes="Bold" FontSize="24" Padding="16,0,16,0" />
 
-
-
-        <Image Grid.Row="0" Source="menu_cancel" WidthRequest="16" HeightRequest="16" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,16,0" />
+        <Image Grid.Row="0" Source="Images/menu_cancel.png" WidthRequest="16" HeightRequest="16" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,16,0">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCloseMenuTapped" />
+            </Image.GestureRecognizers>
+        </Image>
 
         <BoxView Grid.Row="1" Background="#E4E4E4" HeightRequest="1" />
 
@@ -48,14 +50,20 @@
 
         <BoxView Grid.Row="3" Background="#E4E4E4" HeightRequest="1" />
 
-        <Grid Grid.Row="4" RowDefinitions="Auto" ColumnDefinitions="60,*" ColumnSpacing="0">
-            <Image Grid.Row="0" Grid.Column="0" Source="menu_settings" WidthRequest="24" HeightRequest="24" HorizontalOptions="Center"/>
-            <Label Grid.Row="0" Grid.Column="1" Text="Settings" TextColor="Black" FontSize="18" />
+        <Grid x:Name="SettingsMenuRow" Grid.Row="4" RowDefinitions="Auto" ColumnDefinitions="60,*" ColumnSpacing="0">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnSettingsMenuTapped" />
+            </Grid.GestureRecognizers>
+            <Image Grid.Row="0" Grid.Column="0" InputTransparent="True" Source="Images/menu_settings.png" WidthRequest="24" HeightRequest="24" HorizontalOptions="Center"/>
+            <Label Grid.Row="0" Grid.Column="1" InputTransparent="True" Text="Settings" TextColor="Black" FontSize="18" />
         </Grid>
 
-        <Grid Grid.Row="5" RowDefinitions="Auto" ColumnDefinitions="60,*" ColumnSpacing="0">
-            <Image Grid.Row="0" Grid.Column="0" Source="settings_info" WidthRequest="24" HeightRequest="24" HorizontalOptions="Center"/>
-            <Label Grid.Row="0" Grid.Column="1" Text="About this app" TextColor="Black" FontSize="18" />
+        <Grid x:Name="AboutMenuRow" Grid.Row="5" RowDefinitions="Auto" ColumnDefinitions="60,*" ColumnSpacing="0">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnAboutMenuTapped" />
+            </Grid.GestureRecognizers>
+            <Image Grid.Row="0" Grid.Column="0" InputTransparent="True" Source="Images/settings_info.png" WidthRequest="24" HeightRequest="24" HorizontalOptions="Center"/>
+            <Label Grid.Row="0" Grid.Column="1" InputTransparent="True" Text="About this app" TextColor="Black" FontSize="18" />
         </Grid>
 
 

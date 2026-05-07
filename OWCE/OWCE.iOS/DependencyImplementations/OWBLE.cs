@@ -10,6 +10,7 @@ using CoreFoundation;
 using Foundation;
 using OWCE.DependencyInterfaces;
 using OWCE.iOS.Extensions;
+using Microsoft.Maui.Devices;
 using UIKit;
 
 namespace OWCE.iOS.DependencyImplementations
@@ -125,6 +126,13 @@ namespace OWCE.iOS.DependencyImplementations
             }
         }
 
+        static string BleNotSupportedMessage()
+        {
+            if (DeviceInfo.DeviceType == DeviceType.Virtual)
+                return "Bluetooth is not available on the iOS Simulator. Use a physical iPhone or iPad to scan for a Onewheel.";
+            return "Bluetooth scanning is not supported on this device.";
+        }
+
         public void StartScanning()
         {
             Debug.WriteLine("StartScanning");
@@ -155,11 +163,11 @@ namespace OWCE.iOS.DependencyImplementations
                 }
                 else if (_centralManager.State == CBManagerState.Resetting)
                 {
-                    throw new Exception("Bluetooth scanning is not supported on this device.");
+                    throw new Exception(BleNotSupportedMessage());
                 }
                 else if (_centralManager.State == CBManagerState.Unsupported)
                 {
-                    throw new Exception("Bluetooth scanning is not supported on this device.");
+                    throw new Exception(BleNotSupportedMessage());
                 }
             }
         }
@@ -470,7 +478,7 @@ namespace OWCE.iOS.DependencyImplementations
             }
             else if (_centralManager.State == CBManagerState.Unsupported)
             {
-                ErrorOccurred?.Invoke("Bluetooth scanning is not supported on this device.");
+                ErrorOccurred?.Invoke(BleNotSupportedMessage());
             }
         }
 

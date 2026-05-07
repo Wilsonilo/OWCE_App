@@ -3,11 +3,14 @@ obj/
 .vs/
 .idea/
 .mfractor/
-OWCE/OWCE/AppConstants.cs
-AppConstants.cs
 packages/
 Protobuf/csharp/
 .DS_Store
 mono_crash.*.json
 *.blob
 OWCE/OWCE/Resources/SampleRideData/*.bin
+
+# Local signing exports (never commit)
+*.mobileprovision
+*.p12
+Directory.Build.props.user

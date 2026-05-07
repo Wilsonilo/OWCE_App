@@ -21,16 +21,6 @@ namespace OWCE.iOS
                 .UseMauiCommunityToolkit()
                 .ConfigureMopups()
                 .UseSkiaSharp()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("SairaExtraCondensed-Black.ttf", "SairaBlack");
-                    fonts.AddFont("SairaExtraCondensed-Bold.ttf", "SairaBold");
-                    fonts.AddFont("SairaExtraCondensed-SemiBold.ttf", "SairaSemiBold");
-                    fonts.AddFont("SairaExtraCondensed-Light.ttf", "SairaLight");
-                    fonts.AddFont("SairaExtraCondensed-Medium.ttf", "SairaMedium");
-                    fonts.AddFont("SairaExtraCondensed-ExtraBold.ttf", "SairaExtraBold");
-                    fonts.AddFont("SairaExtraCondensed-Regular.ttf", "SairaRegular");
-                })
                 .ConfigureMauiHandlers(handlers =>
                 {
                     handlers.AddHandler<ArcView, ArcViewHandler>();
@@ -40,6 +30,8 @@ namespace OWCE.iOS
             builder.Services.AddSingleton(typeof(IPermissionPrompt), typeof(PermissionPrompt));
             builder.Services.AddSingleton(typeof(IUserAgent), typeof(UserAgent));
             builder.Services.AddSingleton(typeof(IWatch), typeof(Watch));
+
+            AppCenterStartup.TryStart();
 
             return builder.Build();
         }

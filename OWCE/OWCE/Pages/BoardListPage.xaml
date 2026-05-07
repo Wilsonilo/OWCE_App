@@ -14,14 +14,15 @@
         <ResourceDictionary>
             <converters:BoardIsAvailableOpacityConverter x:Key="boardIsAvailableOpacityConverter" />
 
-            <DataTemplate x:Key="SideMenu">
+            <DataTemplate x:Key="SideMenu" x:DataType="pages:BoardListPage">
                 <Grid BackgroundColor="White" ColumnSpacing="0" RowSpacing="0" VerticalOptions="FillAndExpand" RowDefinitions="Auto,*">
-                                
-                    <Grid Grid.Row="0" VerticalOptions="End" RowDefinitions="Auto" ColumnDefinitions="60,*" ColumnSpacing="0" >
-                        <Image Grid.Row="0" Grid.Column="0" Source="menu_myrides" WidthRequest="24" HeightRequest="24" HorizontalOptions="Center" />
-                        <Label Grid.Row="0" Grid.Column="1" Text="Past Rides" TextColor="Black" FontSize="18" />
+                    <Grid Grid.Row="0" VerticalOptions="End" RowDefinitions="Auto" ColumnDefinitions="60,*" ColumnSpacing="0">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PastRidesCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Image Grid.Row="0" Grid.Column="0" InputTransparent="True" Source="Images/menu_myrides.png" WidthRequest="24" HeightRequest="24" HorizontalOptions="Center" />
+                        <Label Grid.Row="0" Grid.Column="1" InputTransparent="True" Text="Past Rides" TextColor="Black" FontSize="18" />
                     </Grid>
-
                 </Grid>
             </DataTemplate>
 
@@ -37,7 +38,7 @@
         </Grid.Background>
               
         
-        <Image x:Name="BackgroundLogoImage" HorizontalOptions="Center" VerticalOptions="Center" Source="splash_image.png" Opacity="0.1" />
+        <Image x:Name="BackgroundLogoImage" HorizontalOptions="Center" VerticalOptions="Center" Source="Images/splash_image.png" Opacity="0.1" />
         <!--
         <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="0" Opacity="0.1">
             <Image Source="logo_a.png" />

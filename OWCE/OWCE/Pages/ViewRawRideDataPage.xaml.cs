@@ -51,7 +51,7 @@ namespace OWCE.Pages
             {
                 Position = CustomToolbarItemPosition.Right,
                 //Text = "Share",
-                IconImageSource = "icon_share",
+                IconImageSource = ImageSource.FromFile("Images/icon_share.png"),
                 Command = new AsyncRelayCommand(ExportAsync),
             });
 

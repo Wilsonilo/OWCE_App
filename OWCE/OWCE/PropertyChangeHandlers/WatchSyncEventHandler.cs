@@ -64,8 +64,7 @@ namespace OWCE.PropertyChangeHandlers
             var updates = watchUpdates;
             watchUpdates = new Dictionary<WatchMessage, object>();
 
-            IWatch watchService = DependencyService.Get<IWatch>();
-            watchService.SendWatchMessages(updates);
+            global::OWCE.App.GetService<IWatch>()?.SendWatchMessages(updates);
         }
 
         // Invoked when the OWBoard has properties changed (eg Speed, Voltage) that we need

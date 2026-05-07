@@ -71,7 +71,7 @@ namespace OWCE.Pages
             var sideMenuItem = new CustomToolbarItem()
             {
                 Position = CustomToolbarItemPosition.Left,
-                IconImageSource = "burger_menu",
+                IconImageSource = ImageSource.FromFile("Images/burger_menu.png"),
                 Command = new AsyncRelayCommand(async () =>
                 {
                     await MopupService.Instance.PushAsync(Popup.SideMenuPopup.Instance);
@@ -181,9 +181,7 @@ namespace OWCE.Pages
 
             await Navigation.PopModalAsync();
 
-            IWatch watchService = DependencyService.Get<IWatch>();
-
-            watchService.StopListeningForWatchMessages();
+            App.GetService<IWatch>()?.StopListeningForWatchMessages();
         }
 
 
